@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    /* General Styling */
+    body {
+      background-color: #FFD6E0;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #FF69B4;
+      font-size: 3em;
+      margin-top: 50px;
+      text-shadow: 2px 2px #fff;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #444;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      color: #FF69B4;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    /* Secret Button */
+    .secret-btn {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      background-color: #FF69B4;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      position: relative;
+    }
+
+    .secret-btn:hover {
+      background-color: #ff4da6;
+      transform: scale(1.05);
+    }
+
+    /* Secret Love Note Popup */
+    .love-note {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff0f6;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 90%;
+      max-height: 90%;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: popUp 0.5s ease forwards;
+      z-index: 10;
+    }
+
+    /* Carousel container */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px; /* Restrict max width for big images */
+      aspect-ratio: 4/3; /* Maintains 1600x1200 ratio */
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 15px;
+      background: #000; /* Background behind images */
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Keeps the full image visible */
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      border-radius: 15px;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+    }
+
+    /* Close button */
+    .close-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #FF69B4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      background-color: #ff4da6;
+    }
+
+    /* Overlay background */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+    }
+
+    @keyframes popUp {
+      from { transform: translate(-50%, -60%) scale(0.8); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* Responsive Text */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .carousel {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Spacer to push heading down -->
+  <br><br><br><br><br><br>
+  
+  <h1>Happy Birthday, Babe! 🎂💖</h1>
+  <p>
+    You really are God's strongest soldier.<br>
+    Amakey maardhor ta kom kor, aar cheesecake ta joldi khawa.<br>
+    You are kinda stuck with me, so deal with it. 💌
+  </p>
+
+  <!-- Secret Button -->
+  <button class="secret-btn" onclick="showNote()">Click me for a surprise ✨</button>
+
+  <!-- Overlay for background dim -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Secret Love Note Popup with Photo Carousel -->
+  <div class="love-note" id="loveNote">
+    <h2>💖 WE NEED MORE PICTURES 💖</h2>
+
+    <div class="carousel" id="carousel">
+      <!-- Replace these with your own image URLs -->
+      <img src="images/pic1.jpeg" class="active" alt="Memory 1">
+      <img src="images/pic2.jpeg" alt="Memory 2">
+      <img src="images/pic3.jpeg" alt="Memory 3">
+      <img src="images/pic5.jpeg" alt="Memory 4">
+      <img src="images/pic6.jpeg" alt="Memory 5">
+    </div>
+
+    <button class="close-btn" onclick="hideNote()">Close</button>
+  </div>
+
+  <script>
+    // Floating hearts animation
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }, 300);
+
+    // Show secret love note
+    function showNote() {
+      document.getElementById("loveNote").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    // Hide secret love note
+    function hideNote() {
+      document.getElementById("loveNote").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    // Carousel logic for rotating images
+    let currentIndex = 0;
+    const images = document.querySelectorAll("#carousel img");
+
+    function showNextImage() {
+      images[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add("active");
+    }
+
+    setInterval(showNextImage, 3000); // Switch every 3 seconds
+  </script>
+</body>
+</html>
